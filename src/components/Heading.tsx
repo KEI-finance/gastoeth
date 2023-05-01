@@ -1,6 +1,7 @@
 import {Box, Typography} from '@mui/material';
 import {useGasPrices} from '../hooks/useGasPrices';
 import Icon from 'react-crypto-icons';
+import {useEffect} from 'react';
 
 export const Heading = () => {
   const {data} = useGasPrices();
@@ -18,6 +19,14 @@ export const Heading = () => {
   } else {
     symbols = ['🔥🔥', '🔥🔥'];
   }
+
+  useEffect(() => {
+    (document.getElementById('favicon') as HTMLLinkElement).href =
+      'data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>' +
+      symbols[1] +
+      '</text></svg>';
+    window.document.head;
+  }, symbols);
 
   return (
     <Box textAlign="center">

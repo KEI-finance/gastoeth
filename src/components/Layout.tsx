@@ -2,6 +2,7 @@ import {Container, Fade, Paper, styled} from '@mui/material';
 import {PropsWithChildren} from 'react';
 import {useGasPrices} from '../hooks/useGasPrices';
 import Color from 'color';
+import {useEthPrice} from '../hooks/useEthPrice';
 
 const PageContainer = styled('div')({
   display: 'flex',
@@ -56,7 +57,12 @@ function getGradient(price: number) {
 
 export const Layout = ({children}: PropsWithChildren) => {
   const {data} = useGasPrices();
+  const {data: ethPrice} = useEthPrice();
   const price = +(data?.ProposeGasPrice || '0');
+
+  if (!data || !ethPrice) {
+    return null;
+  }
 
   return (
     <Fade in style={{transitionDuration: '1.5s'}}>
