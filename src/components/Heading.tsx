@@ -1,11 +1,13 @@
-import {Box, Typography} from '@mui/material';
+import {Box, Typography, useMediaQuery, useTheme} from '@mui/material';
 import {useGasPrices} from '../hooks/useGasPrices';
 import Icon from 'react-crypto-icons';
 import {useEffect} from 'react';
+import {useIsMobile} from '../hooks/useIsMobile';
 
 export const Heading = () => {
   const {data} = useGasPrices();
   const price = +(data?.ProposeGasPrice || '0');
+  const isMobile = useIsMobile();
 
   let symbols: [string, string];
   if (price < 20) {
@@ -34,7 +36,9 @@ export const Heading = () => {
         <Icon name="eth" size={20} /> GAS PRICE <Icon name="eth" size={20} />
       </Typography>
       <Typography variant="h2" sx={{mb: 3}}>
-        {symbols[0]} {data?.ProposeGasPrice} {symbols[1]}
+        {isMobile ? symbols[0].substring(2) : symbols[0]}{' '}
+        {data?.ProposeGasPrice}{' '}
+        {isMobile ? symbols[0].substring(2) : symbols[1]}
       </Typography>
     </Box>
   );
